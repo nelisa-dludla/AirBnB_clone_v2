@@ -2,14 +2,7 @@
 """ This modules handles Database Storage """
 from sqlalchemy import create_engine
 from os import getenv
-from models.base_model import Base
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.user import User
-from models.amenity import Amenity
 
 
 class DBStorage:
@@ -19,6 +12,8 @@ class DBStorage:
 
     def __init__(self):
         ''' Create engine '''
+        from models.base_model import Base
+
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             getenv('HBNB_MYSQL_USER'),
             getenv('HBNB_MYSQL_PWD'),
@@ -32,6 +27,13 @@ class DBStorage:
 
     def all(self, cls=None):
         ''' query on the current database session '''
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
+        from models.amenity import Amenity
+
         classes = {
             "City": City,
             "State": State,
@@ -73,6 +75,8 @@ class DBStorage:
 
     def reload(self):
         ''' create all tables in the database '''
+        from models.base_model import Base
+
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)
