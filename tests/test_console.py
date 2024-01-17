@@ -5,7 +5,6 @@ from unittest.mock import patch
 from io import StringIO
 import os
 import pep8
-import json
 import console
 from console import HBNBCommand
 
@@ -16,7 +15,7 @@ class TestConsole(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """set up for the tests"""
-        cls.consol = HBNBCommand()
+        cls.console = HBNBCommand()
 
     def setUp(self):
         """Sets up test cases."""
@@ -32,15 +31,7 @@ class TestConsole(unittest.TestCase):
 
     def teardown(cls):
         """tear down at the end"""
-        del cls.consol
-
-    def tearDown(self):
-        """Remove temporary files"""
-        if (os.getenv('HBNB_TYPE_STORAGE') != 'db'):
-            try:
-                os.remove("file.json")
-            except Exception:
-                pass
+        del cls.console
 
     def test_docstrings_in_console(self):
         """check for docstrings"""
@@ -58,7 +49,7 @@ class TestConsole(unittest.TestCase):
     def test_emptyline(self):
         """Test if line is empty"""
         with patch('sys.stdout', new=StringIO()) as f:
-            self.consol.onecmd("\n")
+            self.console.onecmd("\n")
             self.assertEqual('', f.getvalue())
 
 
