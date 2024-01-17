@@ -51,14 +51,14 @@ class DBStorage:
             lista = self.__session.query(cls)
             for obj in lista:
                 key = '{}.{}'.format(type(obj).__name__, obj.id)
-                dic[key] = obj.to_dict()
+                dic[key] = obj
             return dic
         else:
             for name, value in classes.items():
                 lista = self.__session.query(value)
                 for obj in lista:
                     key = '{}.{}'.format(name, obj.id)
-                    dic[key] = obj.to_dict()
+                    dic[key] = obj
             return dic
 
     def new(self, obj):
