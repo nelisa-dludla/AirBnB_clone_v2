@@ -215,10 +215,14 @@ class HBNBCommand(cmd.Cmd):
                 return
             for k, v in storage.all(args).items():
                 if k.split('.')[0] == args:
-                    print_list.append(str(v))
+                    print_list.append('[{}] ({}) {}'.format(v['__class__'],
+                                                            v['id'],
+                                                            v))
         else:
             for k, v in storage.all().items():
-                print_list.append(str(v))
+                print_list.append('[{}] ({}) {}'.format(v['__class__'],
+                                                        v['id'],
+                                                        v))
 
         print(print_list)
 
