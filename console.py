@@ -218,7 +218,7 @@ class HBNBCommand(cmd.Cmd):
                     print_list.append(str(v))
         else:
             for k, v in storage.all().items():
-                print_list.append(v)
+                print_list.append(str(v))
 
         print(print_list)
 
