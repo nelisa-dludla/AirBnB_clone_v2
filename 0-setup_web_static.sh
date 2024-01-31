@@ -1,18 +1,13 @@
 #!/usr/bin/env bash
 # This script sets up the web servers for the deployment of web_static
 
-nginx_dir="/etc/nginx"
-data_dir="/data/web_static"
+sudo apt update
+sudo apt install nginx -y
 
-if [ ! -e "$nginx_dir" ]; then
-	apt update
-	apt install nginx -y
-fi
+sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/shared
 
-mkdir -p "$data_dir/releases/test"
-mkdir -p "$data_dir/shared"
-
-chown ubuntu:ubuntu /data
+sudo chown ubuntu:ubuntu /data
 
 html_content="<html>
 	<head></head>
@@ -22,9 +17,9 @@ html_content="<html>
 </html>
 " 
 
-echo "$html_content" > "$data_dir/releases/test/index.html"
+sudo echo "$html_content" > /data/web_static/releases/test/index.html
 
-ln -sf "$data_dir/releases/test" "$data_dir/current"
+ln -sf /data/web_static/releases/test /data/web_static/current
 
 config_content="server {
 	listen 80 default_server;
@@ -47,6 +42,6 @@ config_content="server {
 }
 "
 
-echo "$config_content" > /etc/nginx/sites-available/default
+sudo echo "$config_content" > /etc/nginx/sites-available/default
 
-service nginx restart
+sudo service nginx restart
