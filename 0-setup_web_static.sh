@@ -24,7 +24,7 @@ html_content="<html>
 
 echo "$html_content" > "$data_dir/releases/test/index.html"
 
-ln -sf "$data_dir/releases/test/" "$data_dir/current/"
+ln -sf "$data_dir/releases/test" "$data_dir/current"
 
 config_content="server {
 	listen 80 default_server;
