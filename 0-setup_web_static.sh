@@ -19,7 +19,7 @@ html_content="<html>
 </html>
 " 
 
-echo "$html_content" | sudo tee /data/web_static/releases/test/index.html
+echo "$html_content" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 ln -sf /data/web_static/releases/test /data/web_static/current
 
@@ -44,6 +44,6 @@ config_content="server {
 }
 "
 
-echo "$config_content" | sudo tee /etc/nginx/sites-available/default
+echo "$config_content" | sudo tee /etc/nginx/sites-available/default > /dev/null
 
 sudo service nginx restart
