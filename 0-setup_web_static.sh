@@ -9,8 +9,6 @@ fi
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 
-sudo chown -R ubuntu:ubuntu /data
-
 html_content="<html>
 	<head></head>
 	<body>
@@ -22,6 +20,8 @@ html_content="<html>
 echo "$html_content" | sudo tee /data/web_static/releases/test/index.html > /dev/null
 
 ln -sf /data/web_static/releases/test /data/web_static/current
+
+sudo chown -R ubuntu:ubuntu /data
 
 config_content="server {
 	listen 80 default_server;
