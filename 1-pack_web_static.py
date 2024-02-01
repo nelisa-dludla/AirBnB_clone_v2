@@ -4,8 +4,9 @@ This script generates a .tgz archive from the
 contents of web_static using Fabric
 '''
 
-from fabric import task, local
+from fabric.api import task, local
 from datetime import datetime
+import os
 
 
 @task
@@ -24,7 +25,9 @@ def do_pack():
 
     path = f'versions/web_static_{year}{month}{day}{hour}{minute}{second}.tgz'
 
-    local('mkdir -p versions')
+    if not os.path.exists('versions'):
+        os.makedirs('versions')
+
     result = local(f'tar -czvf {path} web_static', capture=True)
 
     if result.succeeded:
