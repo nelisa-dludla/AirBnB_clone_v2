@@ -13,19 +13,23 @@ env.key_filename = '~/.ssh/authorized_keys'
 
 
 def do_deploy(archive_path):
+    '''
+    This function deploys the web_static directory
+    to the server
+    '''
 
     if not os.path.exists(archive_path):
         return False
 
     try:
-        put(archive_path, '/tmp/', use_sudo=True)
+        put(archive_path, '/tmp', use_sudo=True)
         filename = archive_path.split('/')[-1]
         archive_dir = filename.split('.')[0]
         run(f'mkdir -p /data/web_static/releases/{archive_dir}')
         run('tar -xzf /tmp/{} -C /data/web_static/releases/{}'.
             format(filename, archive_dir))
 
-        run(f'sudo rm -rf /tmp/{archive_path}')
+        run(f'sudo rm -rf /tmp/{filename}')
         run(f'rm /data/web_static/current')
         run('ln -s /data/web_static/current /data/web_static/releases/{}'.
             format(archive_dir))
