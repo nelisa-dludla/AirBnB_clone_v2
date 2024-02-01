@@ -18,7 +18,7 @@ def do_deploy(archive_path):
         return False
 
     try:
-        put(archive_path, '/tmp/')
+        put(archive_path, '/tmp/', use_sudo=True)
         filename = archive_path.split('/')[-1]
         archive_dir = filename.split('.')[0]
         run(f'mkdir -p /data/web_static/releases/{archive_dir}')
