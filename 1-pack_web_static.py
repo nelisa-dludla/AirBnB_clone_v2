@@ -7,6 +7,7 @@ contents of web_static using Fabric
 from fabric import task, local
 from datetime import datetime
 
+
 @task
 def do_pack():
     '''
