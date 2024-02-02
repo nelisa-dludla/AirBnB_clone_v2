@@ -15,7 +15,7 @@ env.key_filename = '/root/.ssh/known_hosts'
 def do_deploy(archive_path):
     '''
     This function deploys the web_static directory
-    to the server
+    to the server 
     '''
 
     if not os.path.exists(archive_path):
