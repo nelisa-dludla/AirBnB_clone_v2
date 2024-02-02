@@ -9,6 +9,7 @@ import os
 
 env.hosts = ['54.158.204.125', '54.236.47.6']
 env.user = 'ubuntu'
+env.key_filename = '/home/duller/.ssh/id_rsa.pub'
 
 
 def do_deploy(archive_path):
@@ -21,7 +22,7 @@ def do_deploy(archive_path):
         return False
 
     try:
-        put(archive_path, '/tmp', use_sudo=True)
+        put(archive_path, '/tmp')
         filename = archive_path.split('/')[-1]
         archive_dir = filename.split('.')[0]
         run(f'mkdir -p /data/web_static/releases/{archive_dir}')
