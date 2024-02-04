@@ -15,25 +15,26 @@ env.key_filename = '/root/.ssh/known_hosts'
 def do_deploy(archive_path):
     '''
     This function deploys the web_static directory
-    to the server 
+    to the server
     '''
 
     if not os.path.exists(archive_path):
         return False
+    else:
+        try:
+            put(archive_path, '/tmp')
+            filename = archive_path.split('/')[-1]
+            archive_dir = filename.split('.')[0]
+            run(f'mkdir -p /data/web_static/releases/{archive_dir}')
+            run('tar -xzf /tmp/{} -C /data/web_static/releases/{}'.
+                format(filename, archive_dir))
 
-    try:
-        put(archive_path, '/tmp')
-        filename = archive_path.split('/')[-1]
-        archive_dir = filename.split('.')[0]
-        run(f'mkdir -p /data/web_static/releases/{archive_dir}')
-        run('tar -xzf /tmp/{} -C /data/web_static/releases/{}'.
-            format(filename, archive_dir))
+            run(f'rm -rf /tmp/{filename}')
+            run(f'rm -rf /data/web_static/current')
+            run('ln -s /data/web_static/current /data/web_static/releases/{}'.
+                format(archive_dir))
 
-        run(f'sudo rm -rf /tmp/{filename}')
-        run(f'rm /data/web_static/current')
-        run('ln -s /data/web_static/current /data/web_static/releases/{}'.
-            format(archive_dir))
-        return True
+            return True
 
-    except Exception as e:
-        return False
+        except Exception as e:
+            return False
