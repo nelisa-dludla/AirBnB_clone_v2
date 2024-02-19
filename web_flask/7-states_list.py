@@ -16,8 +16,7 @@ def states_route():
     from models.state import State
 
     results = storage.all(State)
-    states_dict = dict(sorted(results.items(), key=lambda x: x[1]['name']))
-    return render_template('7-states_list.html', states=states_dict)
+    return render_template('7-states_list.html', states=results)
 
 
 @app.teardown_appcontext
