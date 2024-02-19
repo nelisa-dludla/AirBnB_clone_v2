@@ -14,7 +14,7 @@ app = Flask(__name__)
 def states_route():
     ''' states_list route'''
     results = storage.all()
-    states_dict = dict(sorted(results.items(), key=lambda x: x[1]))
+    states_dict = dict(sorted(results.items(), key=lambda item: item[1]['name']))
     return render_template('7-states_list.html', states=states_dict)
 
 
